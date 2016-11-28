@@ -1,0 +1,57 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+		amazonAWS = '1.9.0'
+	}
+	repositories {
+		mavenCentral();
+		maven { url "https://repo.spring.io/snapshot" };
+		maven { url "http://veyron.autodesk.com/artifactory/spring-milestone" };
+		maven {
+			 url "http://arti.ecs.ads.autodesk.com/artifactory/ext-release-local"
+		};
+		maven {
+			 url "http://arti.ecs.ads.autodesk.com/artifactory/ext-snapshot-local"
+		};
+		
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'commonlog'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral();
+	maven { url "https://repo.spring.io/snapshot" };
+	maven { url "http://veyron.autodesk.com/artifactory/spring-milestone" };
+	maven {
+		 url "http://arti.ecs.ads.autodesk.com/artifactory/ext-release-local"
+	};
+	maven {
+		 url "http://arti.ecs.ads.autodesk.com/artifactory/ext-snapshot-local"
+	};
+}
+
+
+dependencies {
+	compile("com.amazonaws:aws-java-sdk:${amazonAWS}")
+	//compile (group: "com.autodesk.microservice", name: "microservice-commons", version: "0.0.1-SNAPSHOT")	
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-data-cassandra')
+	compile('org.springframework.boot:spring-boot-starter-jersey')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
