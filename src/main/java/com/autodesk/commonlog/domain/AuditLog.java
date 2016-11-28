@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.data.cassandra.mapping.Column;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
@@ -40,6 +41,9 @@ public class AuditLog implements Serializable {
     this.auditLogKey = new AuditLogKey();
   }
 
+  public void setLogId(UUID logId) {
+    this.auditLogKey.setLogId(logId);
+  }
 
   public AuditLogKey getAuditLogKey() {
     return auditLogKey;

@@ -2,6 +2,7 @@ package com.autodesk.commonlog.domain;
 
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.springframework.cassandra.core.Ordering;
 import org.springframework.cassandra.core.PrimaryKeyType;
@@ -33,7 +34,7 @@ public class AuditLogKey implements Serializable {
   @PrimaryKeyColumn(name = "resource_method", ordinal = 3, type = PrimaryKeyType.CLUSTERED)
   private String resourceMethod;
   @PrimaryKeyColumn(name = "log_id", ordinal = 4, type = PrimaryKeyType.CLUSTERED)
-  private String logId;
+  private UUID logId;
 
   public String getTenant() {
     return tenant;
@@ -67,11 +68,11 @@ public class AuditLogKey implements Serializable {
     this.resourceMethod = resourceMethod;
   }
 
-  public String getLogId() {
+  public UUID getLogId() {
     return logId;
   }
 
-  public void setLogId(String logId) {
+  public void setLogId(UUID logId) {
     this.logId = logId;
   }
 

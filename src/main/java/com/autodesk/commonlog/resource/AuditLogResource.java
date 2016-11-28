@@ -3,17 +3,20 @@ package com.autodesk.commonlog.resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.autodesk.commonlog.domain.AuditLog;
 import com.autodesk.commonlog.repo.AuditLogRepo;
 
 
@@ -37,6 +40,13 @@ public class AuditLogResource {
   public Response getAJobStatus(@HeaderParam(AuditLogResource.X_TENANT_HEADER) String tenant,
       @PathParam("itemId") String itemId) {
     return Response.ok(auditLogRepo.getLogByItem(tenant, itemId)).build();
+  }
+
+  @POST
+  public Response save(@HeaderParam(AuditLogResource.X_TENANT_HEADER) String tenant,
+      AuditLog auditLog) {
+    auditLogRepo.saveAuditLog(auditLog);
+    return Response.status(HttpStatus.SC_CREATED).entity(auditLog).build();
   }
 
 }
